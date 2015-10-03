@@ -14,10 +14,13 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let testObject = PFObject(className: "TestObject")
-        testObject["foo"] = "bar"
-        testObject.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
-            print("Object has been saved.")
+        PFAnonymousUtils.logInWithBlock {
+            (user: PFUser?, error: NSError?) -> Void in
+            if error != nil || user == nil {
+                print("Anonymous login failed.")
+            } else {
+                print("Anonymous user logged in.")
+            }
         }
     }
 
